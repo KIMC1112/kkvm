@@ -1,0 +1,16 @@
+[Unit]
+Description=Restore per-VM destination filters before libvirt guest startup
+After=nftables.service
+Before=libvirtd.service virtnetworkd.service libvirt-guests.service kkvm-gpu-start.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/vm_net restore-filters
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=10
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

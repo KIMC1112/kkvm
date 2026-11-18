@@ -19,5 +19,7 @@ jobs:
           bash -n resources/win10/win10_stop
       - name: Profile regression tests
         run: python3 -m unittest discover -s tests -v
+      - name: vm_net Rust tests
+        run: cargo test --locked --manifest-path resources/vm_net/Cargo.toml
       - name: Whitespace checks
         run: git diff --check

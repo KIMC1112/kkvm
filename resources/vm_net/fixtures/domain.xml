@@ -1,0 +1,14 @@
+<domain type='kvm'>
+  <name>kkvm</name>
+  <uuid>0e3faeae-4e8a-42ac-a4b2-f6356eb41ea5</uuid>
+  <memory unit='MiB'>2048</memory>
+  <vcpu>2</vcpu>
+  <os><type arch='x86_64'>hvm</type></os>
+  <devices>
+    <interface type='network'>
+      <mac address='02:b0:ec:83:2b:a4'/>
+      <source network='default'/>
+      <model type='rtl8125'/>
+    </interface>
+  </devices>
+</domain>

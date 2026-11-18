@@ -5,3 +5,7 @@ logs
 .local/
 __pycache__/
 *.py[cod]
+
+# Keep the vm_net Rust source while ignoring downloaded build source trees.
+!resources/vm_net/src/
+!resources/vm_net/src/**

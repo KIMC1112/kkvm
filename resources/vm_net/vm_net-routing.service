@@ -1,0 +1,16 @@
+[Unit]
+Description=Restore optional vm_net IPv4 policy routes after network startup
+After=network-online.target libvirtd.service virtnetworkd.service vm_net.service
+Wants=network-online.target vm_net.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/vm_net restore-all
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=10
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

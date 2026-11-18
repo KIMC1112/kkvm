@@ -110,3 +110,7 @@ vfio-pci 0000:01:00.0: Firmware has requested this device have a 1:1 IOMMU mappi
 部署菜单创建虚拟机成功后，自动安装三个桌面入口：`win10_start`（启动）、`win10_stop`（正常关机）、`win10_stop -f`（强制断电）。已有虚拟机可使用菜单 8 单独安装；安装过程不启停虚拟机。默认正常关机超时不会自动转为强制关闭。
 
 安装条件、动态显卡/USB 接入及恢复方法见 [桌面启停说明](docs/WIN10-CONTROLS.zh-CN.md)。
+
+## 虚拟机网络工具 vm_net
+
+源码、编译安装和状态查询说明见 [resources/vm_net](resources/vm_net/README.zh-CN.md)。支持 RTL8125 与 libvirt NAT；默认修改命令只预览，显式 `--apply` 才实施。
