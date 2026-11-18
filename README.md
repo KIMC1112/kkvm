@@ -1,10 +1,12 @@
 <div align="center">
 
-# AutoVirt
+# kkvm
 
 This project automates complex Linux virtualization tasks.
 
-[![](https://dcbadge.limes.pink/api/server/https://discord.gg/hNVHChp7PX)](https://discord.gg/hNVHChp7PX)
+Canonical repository: [KIMC1112/kkvm](https://github.com/KIMC1112/kkvm)
+
+后续搭建、重建和修改统一以此仓库为准。
 
 </div>
 
@@ -22,12 +24,12 @@ This project automates complex Linux virtualization tasks.
 
 #### 1. Clone Git repository
 ```sh
-git clone --single-branch --depth=1 https://github.com/Scrut1ny/AutoVirt
+git clone --single-branch --depth=1 https://github.com/KIMC1112/kkvm.git
 ```
 
 #### 2. Change directory
 ```sh
-cd AutoVirt/
+cd kkvm/
 ```
 
 #### 3. Execute
@@ -42,9 +44,9 @@ EXPERIMENTAL=1 ./main.sh
 ---
 
 ### 4. Update repository
-- ***Make sure you're in the `AutoVirt/` root directory when running the command below!***
+- ***Make sure you're in the `kkvm/` root directory when running the command below!***
 ```sh
-git fetch --all && git reset --hard origin/main
+git pull --ff-only origin main
 ```
 
 </details>
@@ -93,3 +95,12 @@ vfio-pci 0000:01:00.0: Firmware has requested this device have a 1:1 IOMMU mappi
 它固定版本和包 SHA256、保留 RTL8125，在独立目录构建/安装，不自动重启或替换运行中的虚拟机。
 
 详见 [部署、验证与回退说明](profiles/cachyos-7.0.12-acpi/README.zh-CN.md)。原 `main.sh` 的默认流程保持不变。
+
+## kkvm 项目约定
+
+- 新安装目录：`/opt/kkvm`；内核备份：`/var/lib/kkvm/kernel-7.0.12`。
+- 新建虚拟机默认名称：`kkvm`；NAT 网络：`kkvm-Router`；网卡保持 `rtl8125`。
+- 自定义 QEMU 路径：`KKVM_QEMU_EMULATOR`。
+- Windows 桌面快捷方式名称继续使用 `win10_start`，入口继续使用 `/usr/local/bin/win10_start`，沿用动态显卡及 USB 切换。
+- 已部署机器的切换与回退见 [迁移说明](docs/MIGRATION.zh-CN.md)。源码改名不会自动迁移正在运行的虚拟机。
+- 许可证与贡献者说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。

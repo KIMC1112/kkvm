@@ -8,7 +8,7 @@ from pathlib import Path
 import struct
 
 SIGNATURES = ('APIC', 'DSDT', 'FACP', 'HPET', 'IVRS', 'MCFG', 'TPM2')
-MARKER = 'autovirt_host_acpi_identity'
+MARKER = 'kkvm_host_acpi_identity'
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
@@ -55,13 +55,13 @@ def overlay(aml, acpi, identity):
 static const struct {
     char signature[5];
     uint8_t identity[26];
-} autovirt_host_acpi_identity[] = {
+} kkvm_host_acpi_identity[] = {
 ''' + '\n'.join(rows) + '\n};\n\n'
     extra = '''    /* Override header identity before acpi_table_end computes checksum. */
-    for (size_t i = 0; i < G_N_ELEMENTS(autovirt_host_acpi_identity); i++) {
-        if (!memcmp(desc->sig, autovirt_host_acpi_identity[i].signature, 4)) {
+    for (size_t i = 0; i < G_N_ELEMENTS(kkvm_host_acpi_identity); i++) {
+        if (!memcmp(desc->sig, kkvm_host_acpi_identity[i].signature, 4)) {
             memcpy(array->data + desc->table_offset + 10,
-                   autovirt_host_acpi_identity[i].identity, 26);
+                   kkvm_host_acpi_identity[i].identity, 26);
             break;
         }
     }

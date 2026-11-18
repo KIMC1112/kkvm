@@ -52,7 +52,7 @@ sudo bash setup-cachyos7012-acpi.sh install-kernel /path/to/packages
 
 随后需输入 INSTALL-7.0.12 并确认 pacman 的事务。它会保留旧包、相关 boot 文件和配置，安装精确版本、生成 initramfs/GRUB 菜单并锁定包。**不更改默认启动项、不自动重启**；维护时自行选择新内核，启动成功后重新运行 check。
 
-任何失败都应先检查日志和备份，**不要直接重启**。备份位于命令输出的 /var/lib/autovirt/kernel-7.0.12/ 时间戳目录。需要回滚内核时，用其中留存并验证签名的原版本两个包执行 pacman -U，再重新生成 initramfs 和 GRUB；不要混入其他备份目录中的包。无法进入系统时使用保留的 LTS 救援入口。自动安装不宣称能够无条件事务回滚所有第三方包钩子。
+任何失败都应先检查日志和备份，**不要直接重启**。备份位于命令输出的 /var/lib/kkvm/kernel-7.0.12/ 时间戳目录。需要回滚内核时，用其中留存并验证签名的原版本两个包执行 pacman -U，再重新生成 initramfs 和 GRUB；不要混入其他备份目录中的包。无法进入系统时使用保留的 LTS 救援入口。自动安装不宣称能够无条件事务回滚所有第三方包钩子。
 
 ## 3. 在目标机器构建 QEMU
 
@@ -86,15 +86,15 @@ sudo bash setup-cachyos7012-acpi.sh install /absolute/path/to/.local/cachyos7012
 安装前复核整套 staging 文件哈希。每次构建使用独立的：
 
 ~~~text
-/opt/AutoVirt/builds/cachyos7012-acpi-XXXXX/bin/qemu-system-x86_64-acpi-identity
+/opt/kkvm/builds/cachyos7012-acpi-XXXXX/bin/qemu-system-x86_64-acpi-identity
 ~~~
 
-整个模块/数据目录一起安装，不只复制一个 ELF；安装目标存在则拒绝覆盖。旧 /opt/AutoVirt/emulator 完全保留，当前运行的 VM 不切换。
+整个模块/数据目录一起安装，不只复制一个 ELF；安装目标存在则拒绝覆盖。已有 emulator 安装目录完全保留，当前运行的 VM 不切换。
 
 为**新部署**选择此构建时，将安装打印的真实路径设置给现有部署入口：
 
 ~~~bash
-export AUTOVIRT_QEMU_EMULATOR=/opt/AutoVirt/builds/cachyos7012-acpi-XXXXX/bin/qemu-system-x86_64-acpi-identity
+export KKVM_QEMU_EMULATOR=/opt/kkvm/builds/cachyos7012-acpi-XXXXX/bin/qemu-system-x86_64-acpi-identity
 bash main.sh
 # 选择 Deploy Auto/Unattended XML；其他部署问题仍按原流程回答。
 ~~~
@@ -116,7 +116,7 @@ python3 profiles/cachyos-7.0.12-acpi/acpi_identity.py restore \
 恢复 pacman 忽略项（使用命令输出的具体 pin 备份目录）：
 
 ~~~bash
-sudo python3 profiles/cachyos-7.0.12-acpi/kernel.py restore-pin /var/lib/autovirt/kernel-7.0.12/EXACT-BACKUP/pin
+sudo python3 profiles/cachyos-7.0.12-acpi/kernel.py restore-pin /var/lib/kkvm/kernel-7.0.12/EXACT-BACKUP/pin
 ~~~
 
 两种恢复均验证原件 SHA256，并拒绝覆盖之后的用户改动；测试在额外副本进行，最终修改产物保留。

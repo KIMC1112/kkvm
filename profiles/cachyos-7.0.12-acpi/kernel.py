@@ -52,7 +52,7 @@ def merge_pin(text):
     missing = [name for name in NAMES if name not in present]
     if not missing:
         return text
-    lines.insert(positions[0] + 1, '# AutoVirt: fixed kernel; see profiles/cachyos-7.0.12-acpi\nIgnorePkg = ' + ' '.join(missing) + '\n')
+    lines.insert(positions[0] + 1, '# kkvm: fixed kernel; see profiles/cachyos-7.0.12-acpi\nIgnorePkg = ' + ' '.join(missing) + '\n')
     return ''.join(lines)
 
 def atomic_write(path, data):
@@ -107,7 +107,7 @@ def require_root():
         raise RuntimeError('Run this operation with sudo')
 
 def backup_path():
-    root = Path('/var/lib/autovirt/kernel-7.0.12')
+    root = Path('/var/lib/kkvm/kernel-7.0.12')
     root.mkdir(parents=True, exist_ok=True, mode=0o700)
     return Path(tempfile.mkdtemp(prefix=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-'), dir=root))
 

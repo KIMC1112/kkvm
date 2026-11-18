@@ -1,0 +1,20 @@
+name: Validate kkvm
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  source-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Shell syntax
+        run: git ls-files -z "*.sh" | xargs -0 -r -n 1 bash -n
+      - name: Profile regression tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Whitespace checks
+        run: git diff --check

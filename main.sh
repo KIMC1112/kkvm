@@ -119,7 +119,7 @@ main_menu() {
 
   while :; do
     clear
-    fmtr::box_text " >> AutoVirt << "; echo ""
+    fmtr::box_text " >> kkvm << "; echo ""
 
     for i in "${!menu[@]}"; do
       printf '  %b[%d]%b %s\n' \

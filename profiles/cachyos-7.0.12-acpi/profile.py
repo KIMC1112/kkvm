@@ -78,7 +78,7 @@ def build(jobs):
     os.chmod(work, 0o700)
     log = work / 'commands.jsonl'
     source = work / 'source'
-    prefix = Path('/opt/AutoVirt/builds') / work.name
+    prefix = Path('/opt/kkvm/builds') / work.name
     if prefix.exists():
         raise RuntimeError('Install destination already exists')
     print('BUILD RECORDS: ' + str(work), flush=True)
@@ -134,7 +134,7 @@ def install(metadata_path):
         raise ValueError('Unexpected build profile')
     artifact = Path(m['artifact']).resolve()
     prefix = Path(m['prefix'])
-    parent = Path('/opt/AutoVirt/builds')
+    parent = Path('/opt/kkvm/builds')
     if prefix.parent != parent or not prefix.name.startswith('cachyos7012-acpi-'):
         raise ValueError('Unsafe installation destination')
     if artifact != metadata_path.parent / 'stage' / prefix.relative_to('/'):
@@ -152,7 +152,7 @@ def install(metadata_path):
         shutil.copytree(artifact, staging, symlinks=True, dirs_exist_ok=True)
         if file_manifest(staging) != m['files']:
             raise ValueError('Copy verification failed; staging retained: ' + str(staging))
-        shutil.copy2(metadata_path, staging / 'autovirt-build.json')
+        shutil.copy2(metadata_path, staging / 'kkvm-build.json')
         staging.rename(prefix)
     print('Installed: ' + str(prefix / 'bin/qemu-system-x86_64-acpi-identity'))
     print('No VM XML, active emulator, desktop shortcut, driver, firmware, or boot setting was changed.')

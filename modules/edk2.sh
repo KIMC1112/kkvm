@@ -7,7 +7,7 @@ source ./utils.sh || { echo "Failed to load utilities module!"; exit 1; }
 
 
 readonly SRC_DIR="$(pwd)/src"
-readonly OUT_DIR="/opt/AutoVirt"
+readonly OUT_DIR="/opt/kkvm"
 
 readonly EDK2_URI="https://github.com/tianocore/edk2.git"
 readonly EDK2_TAG="edk2-stable202605"

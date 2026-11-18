@@ -3,15 +3,15 @@
 source ./utils.sh || { echo "Failed to load utilities module!"; exit 1; }
 
 system_info() {
-    # Opt-in immutable profile build; the legacy default stays unchanged.
-    QEMU_EMULATOR="${AUTOVIRT_QEMU_EMULATOR:-/opt/AutoVirt/emulator/bin/qemu-system-x86_64}"
+    # Opt-in immutable profile build; otherwise use the standard kkvm installation.
+    QEMU_EMULATOR="${KKVM_QEMU_EMULATOR:-/opt/kkvm/emulator/bin/qemu-system-x86_64}"
     if [[ ! -x "$QEMU_EMULATOR" ]]; then
         fmtr::error "QEMU executable not found: $QEMU_EMULATOR"
         exit 1
     fi
 
     # Domain Name
-    DOMAIN_NAME="AutoVirt"
+    DOMAIN_NAME="kkvm"
 
     # CPU Topology
     HOST_LOGICAL_CPUS=$(nproc --all 2>/dev/null || nproc 2>/dev/null)
@@ -316,7 +316,7 @@ configure_xml() {
         #
 
         # Boot order & menu | Loader/OVMF_CODE | NVRAM/OVMF_VARS
-        --boot "cdrom,hd,menu=on,loader=/opt/AutoVirt/firmware/OVMF_CODE.fd,loader.readonly=yes,loader.secure=yes,loader.type=pflash,nvram.template=/opt/AutoVirt/firmware/OVMF_VARS.fd"
+        --boot "cdrom,hd,menu=on,loader=/opt/kkvm/firmware/OVMF_CODE.fd,loader.readonly=yes,loader.secure=yes,loader.type=pflash,nvram.template=/opt/kkvm/firmware/OVMF_VARS.fd"
 
 
 
@@ -441,7 +441,7 @@ configure_xml() {
         #   - https://libvirt.org/formatdomain.html#network-interfaces
         #
 
-        --network "network=AutoVirt-Router,model=rtl8125,mac=$RANDOM_MAC"
+        --network "network=kkvm-Router,model=rtl8125,mac=$RANDOM_MAC"
 
 
 
@@ -557,7 +557,7 @@ configure_xml() {
         #   - https://www.qemu.org/docs/master/system/qemu-manpage.html#hxtool-4
         #
 
-        --qemu-commandline="-smbios file=/opt/AutoVirt/firmware/smbios.bin"            # SMBIOS binary blob
+        --qemu-commandline="-smbios file=/opt/kkvm/firmware/smbios.bin"            # SMBIOS binary blob
         --qemu-commandline="-overcommit cpu-pm=on"                                     # Enables APERF/MPERF support (Need CPU pinning)
         --qemu-commandline="-global host-x86_64-cpu.kvm-pv-enforce-cpuid=on"           # #GP on CPUID-unadvertised KVM PV MSRs (0x4b564d00-08)
         --qemu-commandline="-global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off" # Disables ACPI PCI hotplug
@@ -583,7 +583,7 @@ configure_xml() {
 
     $ROOT_ESC virt-install "${args[@]}" &>> "$LOG_FILE"
 
-    # $ROOT_ESC virt-install "${args[@]}" --print-xml > /tmp/AutoVirt.xml &>> "$LOG_FILE"
+    # $ROOT_ESC virt-install "${args[@]}" --print-xml > /tmp/kkvm.xml &>> "$LOG_FILE"
 
     # virt-manager --connect qemu:///system --show-domain-console "$DOMAIN_NAME" &>> "$LOG_FILE"
 }

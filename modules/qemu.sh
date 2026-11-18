@@ -7,7 +7,7 @@ source ./utils.sh || { echo "Failed to load utilities module!"; exit 1; }
 
 
 readonly ROOT_DIR="$(pwd)"
-readonly OUT_DIR="/opt/AutoVirt"
+readonly OUT_DIR="/opt/kkvm"
 
 readonly QEMU_URI="https://github.com/qemu/qemu.git"
 readonly QEMU_TAG="v11.0.3"

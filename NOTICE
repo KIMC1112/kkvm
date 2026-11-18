@@ -1,0 +1,9 @@
+kkvm
+
+This distribution is derived from the virtualization tooling by Scrut1ny and
+its contributors, with modifications maintained in KIMC1112/kkvm.
+Original authorship and commit history are retained in Git. Existing copyright
+notices and the GNU General Public License v3 in LICENSE remain unchanged.
+
+2026-11-18: renamed project branding, runtime namespaces, installation paths,
+build metadata, and documentation to kkvm.
