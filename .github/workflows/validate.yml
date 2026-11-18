@@ -13,7 +13,10 @@ jobs:
         with:
           python-version: "3.12"
       - name: Shell syntax
-        run: git ls-files -z "*.sh" | xargs -0 -r -n 1 bash -n
+        run: |
+          git ls-files -z "*.sh" | xargs -0 -r -n 1 bash -n
+          bash -n resources/win10/win10_start
+          bash -n resources/win10/win10_stop
       - name: Profile regression tests
         run: python3 -m unittest discover -s tests -v
       - name: Whitespace checks

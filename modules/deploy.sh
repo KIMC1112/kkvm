@@ -588,5 +588,10 @@ configure_xml() {
     # virt-manager --connect qemu:///system --show-domain-console "$DOMAIN_NAME" &>> "$LOG_FILE"
 }
 
-system_info
-configure_xml
+system_info || exit 1
+configure_xml || exit 1
+# Bind the desktop controls to the VM just created; installation never powers it off.
+python3 resources/win10/install.py --domain "$DOMAIN_NAME" || {
+    fmtr::error "VM created, but desktop controls were not installed. Retry from menu 8."
+    exit 1
+}

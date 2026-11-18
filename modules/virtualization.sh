@@ -8,23 +8,27 @@ source ./utils.sh || { echo "Failed to load utilities module!"; exit 1; }
 
 REQUIRED_PKGS_Arch=(
   dnsmasq libvirt virt-manager swtpm qemu-base
+  python desktop-file-utils xdg-user-dirs sudo util-linux
 )
 
 # EXPERIMENTAL
 REQUIRED_PKGS_Debian=(
   qemu-system-x86 ovmf virt-manager libvirt-clients swtpm
   libvirt-daemon-system libvirt-daemon-config-network
+  python3 desktop-file-utils xdg-user-dirs sudo util-linux
 )
 
 # EXPERIMENTAL
 REQUIRED_PKGS_openSUSE=(
   libvirt libvirt-client libvirt-daemon virt-manager
   qemu qemu-kvm ovmf qemu-tools swtpm
+  python3 desktop-file-utils xdg-user-dirs sudo util-linux
 )
 
 # EXPERIMENTAL
 REQUIRED_PKGS_Fedora=(
   @virtualization swtpm
+  python3 desktop-file-utils xdg-user-dirs sudo util-linux
 )
 
 

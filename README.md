@@ -104,3 +104,9 @@ vfio-pci 0000:01:00.0: Firmware has requested this device have a 1:1 IOMMU mappi
 - Windows 桌面快捷方式名称继续使用 `win10_start`，入口继续使用 `/usr/local/bin/win10_start`，沿用动态显卡及 USB 切换。
 - 已部署机器的切换与回退见 [迁移说明](docs/MIGRATION.zh-CN.md)。源码改名不会自动迁移正在运行的虚拟机。
 - 许可证与贡献者说明见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
+
+## Windows 桌面启停
+
+部署菜单创建虚拟机成功后，自动安装三个桌面入口：`win10_start`（启动）、`win10_stop`（正常关机）、`win10_stop -f`（强制断电）。已有虚拟机可使用菜单 8 单独安装；安装过程不启停虚拟机。默认正常关机超时不会自动转为强制关闭。
+
+安装条件、动态显卡/USB 接入及恢复方法见 [桌面启停说明](docs/WIN10-CONTROLS.zh-CN.md)。

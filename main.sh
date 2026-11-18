@@ -106,6 +106,7 @@ main_menu() {
     "Kernel (Patched) Setup|"
     "Looking Glass Setup|"
     "Deploy Auto/Unattended XML|deploy.sh"
+    "Windows Desktop Controls|win10-desktop.sh"
   )
 
   # Handle Ctrl+C
@@ -128,7 +129,7 @@ main_menu() {
     echo
 
     local choice
-    choice="$(prmt::quick_prompt '  Enter your choice [1-7]: ')" || continue
+    choice="$(prmt::quick_prompt '  Enter your choice [1-8]: ')" || continue
     clear
 
     if (( choice >= 1 && choice <= ${#menu[@]} )); then
